@@ -1,0 +1,192 @@
+Animal Walkie Talkie – Product Requirements Document (PRD)
+
+1. Purpose & Vision
+
+Create a delightful, browser‑based “walkie‑talkie” toy that helps children (ages 3+) learn to pronounce animal names in Spanish through playful call‑and‑response. Sessions are intentionally short (< 10 min) to minimise blue‑light exposure, and the UI feels like a tangible device with big buttons, haptics and lively motion.
+
+2. Goals & Success Criteria
+
+Objective
+
+KPI / Acceptance Criteria
+
+Deliver a frictionless play loop
+
+90% of users reach first animal interaction in ≤ 15 s from load
+
+Encourage correct-ish pronunciation
+
+≥ 70% of attempts trigger an animal response (tuned low threshold)
+
+Keep screen‑time short
+
+Median session length ≤ 6 min
+
+Delight parents & kids
+
+Post‑session emoji CSAT ≥ 4/5
+
+Protect privacy & comply with COPPA/GDPR‑K
+
+No personal data stored; third‑party libs vetted
+
+3. Target Users
+
+Primary: Children 3‑7 years old who are discovering animal vocabulary.
+
+Secondary: Parents/caregivers seeking quick, safe, educational diversions while waiting (mealtime prep, bedtime wind‑down, etc.).
+
+Key User Stories
+
+“I’m waiting for my snack; I’m bored.” → Open game, press a button, roar like a tigre.
+
+“I want to show my child funny animal sounds.” → Parent hands over phone, child pronounces vaca, cow appears & moos.
+
+“Playtime’s over; food is ready.” → Parent closes browser; nothing to clean up.
+
+4. Core Gameplay Loop
+
+Load page → Allow microphone (single prompt, cached until browser tab closed).
+
+Idle attract mode (walkie‑talkie bounces, LEDs pulse, random animal silhouette teasers).
+
+Press & hold TALK button (large, tactile; triggers haptic vibration on devices that support it).
+
+Child speaks animal name (Spanish v1.0): tigre, perro, caballo, vaca, gallina.
+
+Voice recognised?
+
+✅ Yes: Animated GIF/Rive of animal + 1‑2 s SFX (< 30 s total audio) + happy particles.
+
+❌ No: Fun error animation → “¡Di‑lo otra vez!” text bubble.
+
+Release button → back to idle (randomised idle prompts every 10 s to re‑engage).
+
+5. Content Specification
+
+Animal
+
+Display asset
+
+Sound effect
+
+Tigre
+
+tigre.riv / .gif
+
+tigre_roar.mp3 (<2 s)
+
+Perro
+
+perro.png
+
+perro_ladrido.mp3
+
+Caballo
+
+caballo.png
+
+caballo_sound.mp3
+
+Vaca
+
+vaca.png
+
+vaca_muuu.mp3
+
+Gallina
+
+gallina.png
+
+chicken_sound.mp3
+
+Future DLC packs: jungle, farm, sea, etc.
+
+6. UX / UI Design Principles
+
+Physicality: Big rounded buttons (min 88 px) with depth, shadows, press‑in animation.
+
+Minimal chrome: Full‑screen canvas; typographic cues only where needed (title & instructions).
+
+Haptics & Motion: Short (<150 ms) haptic burst on button press (mobile), playful spring animations via CSS/GSAP/Rive.
+
+Colour Palette: High‑contrast, low‑saturation primary (#FFBF2B, #00A8E8, #FF4E50) for child safety.
+
+Error feedback: Silly waveform shakes + “¡Inténtalo de nuevo!” speech bubble.
+
+No login / storage: Stateless; refreshing page resets experience.
+
+7. Technical Requirements
+
+Platform: Modern mobile & desktop browsers (Chrome 119+, Safari 17+, Firefox 120+).
+
+Engine / Stack: HTML5 + CSS + vanilla JS/TypeScript; optional lightweight framework (Svelte/Preact) if bundle ≤ 200 KB.
+
+Audio: Web Speech API (SpeechRecognition) with configurable confidence threshold (0.3 default).
+
+Graphics: Rive or animated GIF/PNG; 2× asset sizes for retina.
+
+Performance budget: First interactive ≤ 2.5 s (3G Fast); memory < 100 MB.
+
+Offline behaviour: Graceful error → “Connect to internet to play.”
+
+8. Accessibility & Inclusivity
+
+Minimal reading; instructions voiced in Spanish.
+
+Colour‑blind‑safe palette; rely on shape & motion cues.
+
+Adjustable volume; parent mute toggle.
+
+Touch target ≥ 48 dp; no rapid multi‑touch needed.
+
+9. Monetisation & Compliance
+
+v1.0: Free web demo with 5 animals.
+
+Series strategy: Bundle additional animals/languages as separate paid micro‑apps or IAP (in native wrapper).
+
+No ads or data collection (trust & COPPA focus).
+
+10. Roadmap & Future Enhancements
+
+Release
+
+Scope
+
+v1.1
+
+Turkish language toggle; sensitivity slider in hidden parent menu
+
+v1.2
+
+Animal packs (Safari, Sea, Dino)
+
+v2.0
+
+Adaptive pronunciation coaching; basic progress stars (local, ephemeral)
+
+vX
+
+Native wrapper (iOS/Android) with download‑on‑demand assets
+
+11. Risks & Mitigations
+
+Kids’ voice recognition accuracy: Start with generous threshold; monitor false negatives → refine model or switch to on‑device ML.
+
+Browser mic permission fatigue: Store permission state in sessionStorage; instruct parents to grant once.
+
+Performance on low‑end devices: Offer “Lite” spritesheet fallback (no Rive).
+
+12. Open Questions
+
+Should idle prompts include voice lines or only animations?
+
+Any offline mode required for travel scenarios?
+
+Will future monetisation remain ad‑free? (parent trust)
+
+Document Owner: <your‑name>
+Last updated: 19 Apr 2025
+
+
